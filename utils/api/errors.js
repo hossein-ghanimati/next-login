@@ -3,7 +3,7 @@ export const throwError = (error) => {
 }
 
 export const throwErrorByMessage = (error) => {
-  console.log("Error Message -> ", error.message);
+  console.log("Error Message => ", error.message);
   throwError(error);
 }
 
@@ -11,6 +11,6 @@ export const throw404Error = (item, id) => {
   throwErrorByMessage(new Error(`${item} with id ${id} not found`));
 }
 
-export const throwRouteError = (route) => {
-  throwErrorByMessage(new Error(`Route ${route} not found`));
+export const throwRouteError = (url, method) => {
+  throwErrorByMessage(new Error(`Route ${url.slice(4)} -> ${method} not found`));
 }

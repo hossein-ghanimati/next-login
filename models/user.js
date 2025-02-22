@@ -24,6 +24,12 @@ const shcema = mongoose.Schema({
     required: true,
     
   },
+  role: {
+    type: String,
+    required: true,
+    enum: ["USER", "ADMIN"],
+    default: "USER",
+  },
   
 }, {timestamps: true});
 
