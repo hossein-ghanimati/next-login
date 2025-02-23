@@ -1,7 +1,9 @@
 import userModel from "@/models/user";
+import { comparePassword } from "@/utils/api/auth";
 import { throwError, throwRouteError } from "@/utils/api/errors";
 import {
   send404Response,
+  sendUnauthResponse,
   sendValidationErrorResponse,
 } from "@/utils/api/responses";
 import { loginSchema } from "@/validation/user";
@@ -22,10 +24,20 @@ export default async (req, res) => {
             { email: payload.identifier },
             { username: payload.identifier },
           ],
-          password: payload.password,
         });
         if (!user) {
           return throwError("User not found");
+        }
+        try {
+          const isPasswordValid = comparePassword(
+            payload.password,
+            user.password
+          );
+          if (!isPasswordValid) {
+            throwError("Invalid password");
+          }
+        } catch (error) {
+          sendUnauthResponse(res, error);
         }
         return res.status(200).json({
           success: true,

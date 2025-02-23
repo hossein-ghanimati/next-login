@@ -12,5 +12,5 @@ export const throw404Error = (item, id) => {
 }
 
 export const throwRouteError = (url, method) => {
-  throwErrorByMessage(new Error(`Route ${url.slice(4)} -> ${method} not found`));
+  throwErrorByMessage(new Error(`${url.slice(4)} -> ${method} Route not found`));
 }

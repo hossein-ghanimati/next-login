@@ -15,4 +15,10 @@ export const sendValidationErrorResponse = (res, error) => {
   });
 }
 
+export const sendUnauthResponse = (res, error) => {
+  res.status(401).json({
+    success: false,
+    message: error.message,
+  });
+}
 
