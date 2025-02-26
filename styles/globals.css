@@ -12,6 +12,10 @@ body {
   box-sizing: border-box;
 }
 
+.error{
+  color: red;
+}
+
 .box {
   position: absolute;
   top: 50%;
@@ -32,6 +36,8 @@ body {
 }
 .box .inputBox {
   position: relative;
+  margin-bottom: 20px;
+
 }
 .box .inputBox input {
   width: 100%;
@@ -39,7 +45,7 @@ body {
   font-size: 16px;
   color: #fff;
   letter-spacing: 1px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   border: none;
   border-bottom: 1px solid #fff;
   outline: none;
@@ -66,7 +72,7 @@ body {
 .register {
   color: #03a9f4;
 }
-.box input[type="submit"] {
+.box button[type="submit"] {
   background: transparent;
   border: none;
   outline: none;
