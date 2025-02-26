@@ -2,29 +2,21 @@ import userModel from "@/models/user";
 import { throwRouteError } from "@/utils/api/errors";
 import {
   send404Response,
-  sendValidationErrorResponse,
 } from "@/utils/api/responses";
-import { userSchema } from "@/validation/user";
 import { connectToDB } from "@/configs/db";
 import { hashPassword } from "@/utils/api/auth";
+import { sendNewUser, validateRegister } from "@/funcs/api/register";
 await connectToDB();
 
-const registerUser = async (req, res) => {
-  let payload = null;
-  try {
-    payload = userSchema.parse(req.body);
-  } catch (error) {
-    sendValidationErrorResponse(res, error);
-  }
+const register = async (req, res) => {
+  const payload = validateRegister(res, req.body);
+
   const hashedPassword = hashPassword(payload.password);
   payload.password = hashedPassword;
 
   const newUser = await userModel.create(payload);
-  return res.status(201).json({
-    success: true,
-    message: "User registered successfully",
-    data: newUser,
-  });
+
+  sendNewUser(res, newUser)
 };
 
 
@@ -32,7 +24,8 @@ export default async (req, res) => {
   try {
     switch (req.method) {
       case "POST":
-        return await registerUser(req, res);
+        await register(req, res);
+        break
       default:
         throwRouteError(req.url, req.method);
     }

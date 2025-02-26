@@ -9,14 +9,14 @@ export const sendValidationErrorResponse = (res, error) => {
   const errors = JSON.parse(error.message);
   const mainError = errors[0];
   const errorMessage = `${mainError.path[0]} error :  ${mainError.message}`
-  res.status(442).json({
+  return res.status(442).json({
     success: false,
     message: errorMessage,
   });
 }
 
 export const sendUnauthResponse = (res, error) => {
-  res.status(401).json({
+  return res.status(401).json({
     success: false,
     message: error.message,
   });
