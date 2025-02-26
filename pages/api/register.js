@@ -4,8 +4,8 @@ import {
   send404Response,
 } from "@/utils/api/responses";
 import { connectToDB } from "@/configs/db";
-import { hashPassword } from "@/utils/api/auth";
-import { sendNewUser, validateRegister } from "@/funcs/api/register";
+import { generateToken, hashPassword } from "@/utils/api/auth";
+import { sendNewUserToken, validateRegister } from "@/funcs/api/register";
 await connectToDB();
 
 const register = async (req, res) => {
@@ -14,9 +14,13 @@ const register = async (req, res) => {
   const hashedPassword = hashPassword(payload.password);
   payload.password = hashedPassword;
 
-  const newUser = await userModel.create(payload);
+  const newUser = await userModel.create(payload);  
+  const token = generateToken({
+    identifier: newUser.username,
+    password: newUser.password,
+  })
 
-  sendNewUser(res, newUser)
+  sendNewUserToken(res, token)
 };
 
 

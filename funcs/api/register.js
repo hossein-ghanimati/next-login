@@ -9,9 +9,9 @@ export const validateRegister = (res, payload) => {
   }
 };
 
-export const sendNewUser = (res, newUser) =>
+export const sendNewUserToken = (res, token) =>
   res.status(201).json({
     success: true,
     message: "User registered successfully",
-    data: newUser,
+    data: token,
   });

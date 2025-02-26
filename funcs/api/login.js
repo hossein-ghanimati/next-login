@@ -37,9 +37,9 @@ export const validateUserPass = (res, payloadPassword, userPassword) => {
   }
 };
 
-export const sendUser = (res, user) =>
+export const sendUserToken = (res, token) =>
   res.status(200).json({
     success: true,
     message: "User logged in successfully",
-    data: user,
+    data: token,
   });

@@ -1,5 +1,6 @@
 import { connectToDB } from "@/configs/db";
-import { findUser, sendUser, validateLogin, validateUserPass } from "@/funcs/api/login";
+import { findUser, sendUserToken, validateLogin, validateUserPass } from "@/funcs/api/login";
+import { generateToken } from "@/utils/api/auth";
 
 import { throwRouteError } from "@/utils/api/errors";
 import { send404Response } from "@/utils/api/responses";
@@ -9,10 +10,14 @@ const login = async (req, res) => {
   const payload = validateLogin(res, req.body);
 
   const user = await findUser(payload);
-
   validateUserPass(res, payload.password, user.password);
 
-  sendUser(res, user);
+  const token = generateToken({
+    identifier: user.username,
+    password: user.password,
+  })
+
+  sendUserToken(res, token);
 };
 
 export default async (req, res) => {
