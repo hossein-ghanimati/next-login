@@ -6,6 +6,7 @@ import {
 import { connectToDB } from "@/configs/db";
 import { generateToken, hashPassword } from "@/utils/api/auth";
 import { sendNewUserToken, validateRegister } from "@/funcs/api/register";
+import { version } from "mongoose";
 await connectToDB();
 
 const register = async (req, res) => {
@@ -15,9 +16,11 @@ const register = async (req, res) => {
   payload.password = hashedPassword;
 
   const newUser = await userModel.create(payload);  
+  const {_id, tokenVersion} = newUser;
+  
   const token = generateToken({
-    identifier: newUser.username,
-    password: newUser.password,
+    _id,
+    tokenVersion,
   })
 
   sendNewUserToken(res, token)

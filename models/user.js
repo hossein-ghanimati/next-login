@@ -30,6 +30,11 @@ const shcema = mongoose.Schema({
     enum: ["USER", "ADMIN"],
     default: "USER",
   },
+  tokenVersion: {
+    type: Number,
+    required: true,
+    default: 0,
+  }
   
 }, {timestamps: true});
 

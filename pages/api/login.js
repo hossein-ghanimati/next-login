@@ -12,9 +12,10 @@ const login = async (req, res) => {
   const user = await findUser(payload);
   validateUserPass(res, payload.password, user.password);
 
+  const {_id, tokenVersion} = user;
   const token = generateToken({
-    identifier: user.username,
-    password: user.password,
+    _id,
+    tokenVersion,
   })
 
   sendUserToken(res, token);

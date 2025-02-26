@@ -1,4 +1,5 @@
 export const send404Response = (res, error) => {
+  console.log("Error Message => ", error.message);
   res.status(404).json({
     success: false,
     message: error.message,

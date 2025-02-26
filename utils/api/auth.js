@@ -1,5 +1,5 @@
 import { compareSync, hashSync } from "bcrypt";
-import { sign } from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
 const privateKey = process.env.PRIVATE_KEY;
 
 export const hashPassword = (password) => 
