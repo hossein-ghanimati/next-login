@@ -1,14 +1,16 @@
-import { findUser, validateLogin, validateUserPass } from "@/funcs/api/login";
+import { connectToDB } from "@/configs/db";
+import { findUser, sendUser, validateLogin, validateUserPass } from "@/funcs/api/login";
 
 import { throwRouteError } from "@/utils/api/errors";
 import { send404Response } from "@/utils/api/responses";
+await connectToDB();
 
 const login = async (req, res) => {
   const payload = validateLogin(res, req.body);
 
   const user = await findUser(payload);
 
-  validateUserPass(payload.password, user.password);
+  validateUserPass(res, payload.password, user.password);
 
   sendUser(res, user);
 };

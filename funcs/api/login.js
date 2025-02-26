@@ -26,7 +26,7 @@ export const findUser = async (payload) => {
   return user;
 };
 
-export const validateUserPass = (payloadPassword, userPassword) => {
+export const validateUserPass = (res, payloadPassword, userPassword) => {
   try {
     const isPasswordValid = comparePassword(payloadPassword, userPassword);
     if (!isPasswordValid) {
