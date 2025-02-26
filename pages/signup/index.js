@@ -12,7 +12,6 @@ function SignUpForm() {
         initialValues={{ fname: "", lname: "", username: "", email: "", password: "" }}
         validate={validateForFormik(userSchema)}
         onSubmit={async (values) => {
-          console.log("in submit")
           await fetch("/api/register", {
             method: "POST",
             headers: {
