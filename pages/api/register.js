@@ -5,12 +5,16 @@ import {
 } from "@/utils/api/responses";
 import { connectToDB } from "@/configs/db";
 import { generateToken, hashPassword } from "@/utils/api/auth";
-import { sendNewUserToken, validateRegister } from "@/funcs/api/register";
-import { version } from "mongoose";
+import { checkIsFirstUser, sendNewUserToken, validateRegister } from "@/funcs/api/register";
 await connectToDB();
 
 const register = async (req, res) => {
   const payload = validateRegister(res, req.body);
+
+  
+
+  const isFirstUser = await checkIsFirstUser();
+  payload.role = isFirstUser ? "ADMIN" : "USER";
 
   const hashedPassword = hashPassword(payload.password);
   payload.password = hashedPassword;
