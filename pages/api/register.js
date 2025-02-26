@@ -17,12 +17,13 @@ const register = async (req, res) => {
 
   const newUser = await userModel.create(payload);  
   const {_id, tokenVersion} = newUser;
-  
+
   const token = generateToken({
     _id,
     tokenVersion,
   })
 
+  req.cookies
   sendNewUserToken(res, token)
 };
 

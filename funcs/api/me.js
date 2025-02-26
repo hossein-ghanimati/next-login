@@ -5,7 +5,7 @@ export const findUser = async ({_id, tokenVersion}) => {
   const user = await usersModel.findOne({
     _id,
     tokenVersion
-  });
+  }, "-tokenVersion -password -v -_id");
   if (!user) {
     throwError("User not found");
   }

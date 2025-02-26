@@ -37,11 +37,13 @@ export const validateUserPass = (res, payloadPassword, userPassword) => {
   }
 };
 
-export const sendUserToken = (res, token) =>
+export const sendUserToken = (res, token) => {
+  res.setHeader("Set-Cookie", `token=${token}; HttpOnly; Secure; Path=/; SameSite=Strict; Domain=localhost:3000; Max-Age=604800`)
   res.status(200).json({
     success: true,
     message: "User logged in successfully",
     data: token,
   });
+}
 
 
