@@ -1,16 +1,14 @@
 import { connectToDB } from "@/configs/db";
 
-import { findUser, sendUser } from "@/funcs/api/me";
-import { verifyToken } from "@/utils/api/auth";
+import {  findUserByToken, sendUser } from "@/funcs/api/me";
+
 import {  throwRouteError } from "@/utils/api/errors";
 import { send404Response } from "@/utils/api/responses";
 
 await connectToDB();
 
-export const getUser = async (res, token) => {
-  const payload = verifyToken(token);
-  
-  const user = await findUser(payload);
+export const getUser = async (res, token) => {  
+  const user = await findUserByToken(token)
 
   sendUser(res, user);
 };

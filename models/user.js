@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+import mongoose from"mongoose"
 
 const shcema = mongoose.Schema({
   fname: {
@@ -38,6 +38,6 @@ const shcema = mongoose.Schema({
   
 }, {timestamps: true});
 
-const User = mongoose.models.User || mongoose.model("User", shcema);
+const User = mongoose.models?.User || mongoose.model("User", shcema);
 
 module.exports = User;

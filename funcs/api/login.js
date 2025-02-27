@@ -6,6 +6,7 @@ import {
   sendValidationErrorResponse,
 } from "@/utils/api/responses";
 import { loginSchema } from "@/validation/user";
+import { NextResponse } from "next/server";
 
 export const validateLogin = (res, payload) => {
   try {
@@ -37,12 +38,16 @@ export const validateUserPass = (res, payloadPassword, userPassword) => {
   }
 };
 
-export const sendUserToken = (res, token) => {
+export const sendUserToken = (req, res,  token, redirect) => {
   res.setHeader("Set-Cookie", `token=${token}; HttpOnly; Path=/; Max-Age=604800`)
   res.status(200).json({
     success: true,
     message: "User logged in successfully",
   });
+
+  const url = `${req.headers.origin}${redirect}`
+  console.log(url);
+  return NextResponse.redirect(new URL(url), 302);
 }
 
 

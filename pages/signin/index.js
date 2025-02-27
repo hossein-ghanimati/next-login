@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { validateForFormik } from "@/utils/api/validation/formik";
 import { loginSchema } from "@/validation/user";
+import { useRouter } from "next/router";
 function Index() {
   return (
     <div className="box">
@@ -16,11 +17,9 @@ function Index() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(values),
-          }).then(res => res.json()).then(result => {
-            alert(result.message)
-            console.log(result.data)
           })
         }}
+        
       >
         {({ isSubmitting }) => (
           <Form>

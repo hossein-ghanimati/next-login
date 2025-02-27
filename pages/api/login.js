@@ -4,6 +4,7 @@ import { generateToken } from "@/utils/api/auth";
 
 import { throwRouteError } from "@/utils/api/errors";
 import { send404Response } from "@/utils/api/responses";
+import { NextResponse } from "next/server";
 await connectToDB();
 
 const login = async (req, res) => {
@@ -18,7 +19,7 @@ const login = async (req, res) => {
     tokenVersion,
   })
 
-  sendUserToken(res, token);
+  sendUserToken(req, res, token, user?.role === "ADMIN" ? "/p-admin" : "/dashbord");
 };
 
 export default async (req, res) => {
@@ -26,6 +27,7 @@ export default async (req, res) => {
     switch (req.method) {
       case "POST":
         await login(req, res);
+        return NextResponse.redirect(new URL("https://google.com"), 302);
         break;
       default:
         throwRouteError(req.url, req.method);

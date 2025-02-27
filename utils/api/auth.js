@@ -11,6 +11,8 @@ export const comparePassword = (password, hashedPassword) =>
 export const generateToken = (payload) =>
   sign(payload, privateKey, { expiresIn: "1w" });
 
-export const verifyToken = (token) =>
-  verify(token, privateKey);
+export const verifyToken = (token) =>{
+  return verify(token, privateKey);
+}
+  
 

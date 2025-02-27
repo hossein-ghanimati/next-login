@@ -2,9 +2,11 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { userSchema } from "@/validation/user";
 import { validateForFormik } from "@/utils/api/validation/formik";
+import { useRouter } from "next/router";
 
 
 function SignUpForm() {
+  const router = useRouter();
   return (
     <div className="box">
       <h1 align="center">SignUp Form</h1>
@@ -18,11 +20,10 @@ function SignUpForm() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(values),
-          }).then(res => res.json()).then(result => {
-            alert(result.message)
-            console.log(result.data)
           })
         }}
+
+        
       >
         {({ isSubmitting, errors }) => (
           <Form role="form">
